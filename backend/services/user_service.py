@@ -3,44 +3,28 @@ from passlib.context import CryptContext
 from motor.motor_asyncio import AsyncIOMotorClient
 
 from backend.services.password_managment import PasswordManagment
+from backend.services.user_service_db import UserServiceDB
 
 class UserService() :
     # Managment of users
     def __init__(self) :
-        self.client = AsyncIOMotorClient("mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.4")
-        self.database = self.client["Twitters"]
-        self.collection = self.database["Users"]
+        self.db_service = UserServiceDB()
         self.password_manager = PasswordManagment()
-
-    def serialize_user(self,user):
-        user["_id"] = str(user["_id"])  # Convert ObjectId to string
-        return user
-
-    def get_hashed_password(self,password) :
-        return self.password_manager.hash_password(password)
     
     async def add(self,user : User) :
-        user_document = user.model_dump()
-        user_document["password"] = self.get_hashed_password(user_document["password"])
-        collection = self.collection
-        add_result = await collection.insert_one(user_document)
-        return add_result
+        db_service = self.db_service
+        return await db_service.add(user)
     
     async def get_all(self) : 
-        collection = self.collection
-        users_list = []
-        users_cursor = collection.find()
-        async for users in  users_cursor : 
-            users_list.append(users)
-        return users_list
+        db_service = self.db_service
+        users = await db_service.get_all()
+        print(type(users))
+        return users
     
     async def get_user(self,username) -> dict :
-        collection = self.collection
-        fetched_user = await collection.find_one({"username" : username})
-        if fetched_user:
-            user = self.serialize_user(fetched_user)
-        return user
+        db_service = self.db_service
+        return await db_service.get_user(username)
+    
     async def delete_database(self) :
-        collection = self.collection
-        await collection.drop()
-        return "Database deleted"
+        db_service = self.db_service
+        return await db_service.delete_database()
