@@ -1,8 +1,7 @@
 from typing import List
 from pydantic import BaseModel
-from pydantic import EmailStr, Field
 
-from backend.models.user import User
+from backend.models.user import UserOutput
 
 class UserCollection(BaseModel) :
-    Users : List[User]
+    Users : List[UserOutput]
