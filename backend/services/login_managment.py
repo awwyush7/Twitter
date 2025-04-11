@@ -2,9 +2,10 @@ from datetime import datetime, timedelta, timezone
 import jwt
 import os
 from backend.services.password_managment import PasswordManagment
-from backend.services.user_service import UserService
 from backend.models.token import Token
 from dotenv import load_dotenv, find_dotenv
+
+from backend.services.user_service import UserService
 
 load_dotenv(find_dotenv())
 
@@ -33,8 +34,7 @@ class LoginService() :
         except Exception as e:
             print(f"An error occurred during password verification: {e}")
             return False
-        
-        
+            
     def create_access_token(self,data: dict, expires_delta: timedelta | None = None):
         to_encode = data.copy()
         expire = datetime.now(timezone.utc) + (expires_delta or timedelta(minutes=30))  # ✅ Use timezone-aware datetime
