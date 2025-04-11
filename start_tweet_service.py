@@ -1,8 +1,6 @@
 import uvicorn
 import argparse
 
-
-
 def start_tweet_service() :
     parser = argparse.ArgumentParser(description="MONGODB RESTful API server.")
     parser.add_argument("--host", type=str, default="127.0.0.1", help="Host to listen for tweet service")
@@ -23,4 +21,4 @@ if __name__ == "__main__":
 
 
     # .venv\Scripts\activate
-    # python -m backend.start_servers.start_tweet_service
+    # python -m start_tweet_service

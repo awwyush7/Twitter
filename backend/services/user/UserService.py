@@ -1,12 +1,11 @@
 from backend.models.user import UserInput, UserOutput
-from backend.services.password_managment import PasswordManagment
-from backend.services.db_services.user_service_db import UserServiceDB
+from backend.services.db_services.user_db.IUserServiceDB import IUserServiceDB
+from backend.services.user.IUserService import IUserService
 
-class UserService() :
+class UserService(IUserService) :
     # Managment of users
-    def __init__(self) :
-        self.db_service = UserServiceDB()
-        self.password_manager = PasswordManagment()
+    def __init__(self,db_Service : IUserServiceDB) :
+        self.db_service = db_Service
     
     async def add(self,user : UserInput) :
         db_service = self.db_service
