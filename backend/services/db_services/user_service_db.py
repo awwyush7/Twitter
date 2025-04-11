@@ -24,6 +24,7 @@ class UserServiceDB() :
         total_users = self.total_users
         user_document["password"] = self.get_hashed_password(user_document["password"])
         user_document["user_id"] = total_users+1
+        self.total_users += 1
         collection = self.collection
         add_result = await collection.insert_one(user_document)
         return add_result

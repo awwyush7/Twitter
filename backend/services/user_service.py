@@ -5,7 +5,6 @@ from backend.services.db_services.user_service_db import UserServiceDB
 class UserService() :
     # Managment of users
     def __init__(self) :
-        # self.total = total
         self.db_service = UserServiceDB()
         self.password_manager = PasswordManagment()
     
