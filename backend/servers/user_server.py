@@ -5,11 +5,14 @@ from backend.models.user_login import UserLogin
 from backend.services.login_managment import LoginService
 from backend.services.user_service import UserService
 
+common_user_service = UserService()
+common_login_service = LoginService()
+
 def get_user_service() -> UserService:
-    return UserService()
+    return common_user_service
 
 def get_login_manager() -> LoginService:
-    return LoginService()
+    return common_login_service
 
 app = FastAPI()
 
