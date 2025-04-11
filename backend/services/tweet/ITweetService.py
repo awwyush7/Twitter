@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class IUserService(ABC):
+class ITweetService(ABC):
     @abstractmethod
     def get_current_user_id(self):
         pass

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class IUserServiceDB(ABC):
+class ITweetServiceDB(ABC):
     @abstractmethod
     async def add(self,tweet):
         pass
