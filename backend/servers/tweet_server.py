@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from backend.services.tweet_service import TweetService
+from backend.services.tweet.tweet_service import TweetService
 
 app = FastAPI()
 

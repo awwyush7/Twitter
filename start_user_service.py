@@ -19,4 +19,4 @@ def start_user_service() :
 if __name__ == "__main__":
     start_user_service()
     # .venv\Scripts\activate
-    # python -m backend.start_servers.start_user_service
+    # python -m start_user_service

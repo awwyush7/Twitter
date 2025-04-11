@@ -1,7 +1,8 @@
 from backend.models.tweet import Tweet
 from motor.motor_asyncio import AsyncIOMotorClient
+from backend.services.db_services.user_db import IUserServiceDB
 
-class TweetServiceDB() :
+class TweetServiceDB(IUserServiceDB) :
     # Managment of users
     def __init__(self) :
         self.client = AsyncIOMotorClient("mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.4")

@@ -1,6 +1,7 @@
 from passlib.context import CryptContext
+from backend.services.password.IPasswordService import IPasswordService
 
-class PasswordManagment() :
+class PasswordService(IPasswordService) :
     def __init__(self) :
         self.pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
         self.pwd_context.update(schemes=["bcrypt"], deprecated="auto")

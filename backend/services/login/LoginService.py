@@ -1,11 +1,12 @@
 from datetime import datetime, timedelta, timezone
 import jwt
 import os
-from backend.services.password_managment import PasswordManagment
+from backend.services.login.ILoginService import ILoginService
+from backend.services.password.IPasswordService import IPasswordService
 from backend.models.token import Token
 from dotenv import load_dotenv, find_dotenv
+from backend.services.user.IUserService import IUserService
 
-from backend.services.user_service import UserService
 
 load_dotenv(find_dotenv())
 
@@ -13,11 +14,11 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES  = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES ")
 
-class LoginService() :
+class LoginService(ILoginService) :
 # loading all the users and seraching through it or searching directly in the db with out loading the whole users.
-    def __init__(self):
-        self.password_managment =  PasswordManagment()
-        self.user_service = UserService()
+    def __init__(self,password_service : IPasswordService,user_service : IUserService) :
+        self.password_managment =  password_service
+        self.user_service = user_service
         
     async def get_user(self,user_login) :
         fetched_user = await self.user_service.get_user(user_login.username)

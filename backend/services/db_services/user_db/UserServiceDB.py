@@ -1,16 +1,16 @@
 from backend.models.user import UserInput
 from motor.motor_asyncio import AsyncIOMotorClient
+from backend.services.db_services.user_db.IUserServiceDB import IUserServiceDB
+from backend.services.password.IPasswordService import IPasswordService
 
-from backend.services.password_managment import PasswordManagment
-
-class UserServiceDB() :
+class UserServiceDB(IUserServiceDB) :
     # Managment of users
-    def __init__(self) :
+    def __init__(self,password_service : IPasswordService) :
         self.total_users = 0
         self.client = AsyncIOMotorClient("mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.4")
         self.database = self.client["Twitters"]
         self.collection = self.database["Users"]
-        self.password_manager = PasswordManagment()
+        self.password_manager = password_service
 
     def serialize_user(self,user):
         user["_id"] = str(user["_id"])  # Convert ObjectId to string

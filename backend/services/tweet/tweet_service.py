@@ -1,8 +1,8 @@
 from datetime import datetime
 from uuid import UUID
 from backend.models.tweet import Tweet
-from backend.services.db_services.tweet_service_db import TweetServiceDB
-from backend.services.user_service import UserService
+from backend.services.db_services.tweet_db.TweetServiceDB import TweetServiceDB
+from backend.services.user.UserService import UserService
 
 class TweetService() :
     # Managment of users
@@ -10,7 +10,7 @@ class TweetService() :
         self.db_service = TweetServiceDB()
         self.uuid_generator = UUID()   
         self.user_service = UserService()
-
+ 
     def get_id(self) -> str :
         uuid_generator = self.uuid_generator
         id = uuid_generator.uuid4()
