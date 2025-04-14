@@ -1,13 +1,13 @@
-from fastapi import FastAPI
+from fastapi import APIRouter
 from backend.services.tweet.TweetService import TweetService
 
-app = FastAPI()
+router = APIRouter(prefix="/tweets", tags = ["Tweet"])
 
-@app.get("/health")
+@router.get("/health")
 def health() :
     return "Ok"
 
-@app.post("/create_tweet")
+@router.post("/create_tweet")
 async def add(content : str) :
     tweet_service = TweetService()
     tweet = tweet_service.add(content)

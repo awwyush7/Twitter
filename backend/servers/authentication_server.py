@@ -1,4 +1,4 @@
-from fastapi import Depends, FastAPI
+from fastapi import APIRouter, Depends, FastAPI
 from backend.models.user import UserInput
 from backend.models.user_login import UserLogin
 from backend.services.db_services.user_db.IUserServiceDB import IUserServiceDB
@@ -15,6 +15,7 @@ user_service_db: IUserServiceDB = UserServiceDB(password_service)
 user_service: IUserService = UserService(user_service_db)
 login_service: ILoginService = LoginService(password_service,user_service)
 
+router  = APIRouter(prefix="/auth", tags = ["Auth"])
 def get_user_service() -> IUserService:
     return user_service
 
@@ -23,16 +24,16 @@ def get_login_manager() -> ILoginService:
 
 app = FastAPI()
 
-@app.get("/health")
+@router.get("/health")
 def health() :
     return "Okay"
 
-@app.post("/register")
+@router.post("/register")
 async def add (user : UserInput, user_service : IUserService = Depends(get_user_service)) :
     await user_service.add(user)
     return "Ok"
 
-@app.post("/login")
+@router.post("/login")
 async def login (user_login_body : UserLogin, login_manager : ILoginService = Depends(get_login_manager)): 
     token = await login_manager.get_token(user_login_body)
     return token
