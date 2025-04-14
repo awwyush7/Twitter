@@ -31,14 +31,14 @@ class LoginService(ILoginService) :
             return False
         try: 
             verify_pass = self.password_managment.verify_password(user_login.password, fetched_user["password"])
-            return True
+            return verify_pass
         except Exception as e:
             print(f"An error occurred during password verification: {e}")
             return False
             
     def create_access_token(self,data: dict, expires_delta: timedelta | None = None):
         to_encode = data.copy()
-        expire = datetime.now(timezone.utc) + (expires_delta or timedelta(minutes=30))  # ✅ Use timezone-aware datetime
+        expire = datetime.now(timezone.utc) + (expires_delta or timedelta(minutes=60))  # ✅ Use timezone-aware datetime
         to_encode.update({"exp": expire})
         return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     
