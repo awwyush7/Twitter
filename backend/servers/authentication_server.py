@@ -1,8 +1,5 @@
-from fastapi import Depends, FastAPI, HTTPException
-from fastapi.security import OAuth2PasswordBearer
-import jwt
+from fastapi import Depends, FastAPI
 from backend.models.user import UserInput
-from backend.models.user_collection import UserCollection
 from backend.models.user_login import UserLogin
 from backend.services.db_services.user_db.IUserServiceDB import IUserServiceDB
 from backend.services.db_services.user_db.UserServiceDB import UserServiceDB
