@@ -13,6 +13,9 @@ from backend.services.user.IUserService import IUserService
 from backend.services.user.UserService import UserService
 from backend.services.user.property.IUserPropertyService import IUserPropertyService
 from backend.services.user.property.UserPropertyService import UserPropertyService
+from fastapi import APIRouter
+
+router = APIRouter(prefix="/users", tags = ["User"])
 
 password_service: IPasswordService = PasswordService()
 user_service_db: IUserServiceDB = UserServiceDB(password_service)
@@ -43,21 +46,21 @@ async def get_current_user(user_service : IUserService = Depends(get_user_servic
     except Exception as e:
         raise e
 
-app = FastAPI()
 
-@app.get("/follow")
+
+@router.get("/follow")
 async def follow_user(to_follow : str,user_property_service : IUserPropertyService = Depends(get_user_property_service),user =  Depends(get_current_user)) -> str:
     print("Follow user")
     print(user["username"])
     await user_property_service.follow(user["username"],to_follow)
     return "Ok"
 
-@app.get("/follow/{to_follow}")
+@router.get("/follow/{to_follow}")
 async def follow_user(to_follow : str,user_property_service : IUserPropertyService = Depends(get_user_property_service),user =  Depends(get_current_user)) -> str:
     await user_property_service.follow(user["username"],to_follow)
     return "Ok"
 
-@app.get("/get_me")
+@router.get("/get_me")
 async def get_me(username =  Depends(get_current_user)) :
     # username = await get_current_user()
     # if username is None:

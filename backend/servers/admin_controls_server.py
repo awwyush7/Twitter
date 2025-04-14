@@ -27,7 +27,7 @@
 # def get_login_manager() -> ILoginService:
 #     return login_service
 
-# async def get_current_admin(user_service : IAdminService = Depends(get_admin_service),token = Depends(oauth_scheme)) :
+# async def get_current_admin(user_service : IUserService = Depends(get_user_service),token = Depends(oauth_scheme)) :
 #     try:
 #         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
 #         username = payload.get("username")
