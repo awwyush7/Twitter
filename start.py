@@ -9,7 +9,7 @@ def start_user_service() :
     args = parser.parse_args()
 
     uvicorn.run( 
-        "main:app",  
+        "backend.main:app",  
         host=args.host,
         port=args.port,
         timeout_keep_alive=5,
@@ -19,4 +19,4 @@ def start_user_service() :
 if __name__ == "__main__":
     start_user_service()
     # .venv\Scripts\activate
-    # python -m backend.start
+    # python -m start
