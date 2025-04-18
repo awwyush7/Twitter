@@ -9,7 +9,7 @@ def start_user_service() :
     args = parser.parse_args()
 
     uvicorn.run( 
-        "backend.main:app",  
+        "main:app",  
         host=args.host,
         port=args.port,
         timeout_keep_alive=5,
