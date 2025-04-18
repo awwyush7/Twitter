@@ -46,8 +46,6 @@ async def get_current_user(user_service : IUserService = Depends(get_user_servic
     except Exception as e:
         raise e
 
-
-
 @router.get("/follow")
 async def follow_user(to_follow : str,user_property_service : IUserPropertyService = Depends(get_user_property_service),user =  Depends(get_current_user)) -> str:
     print("Follow user")
@@ -61,9 +59,5 @@ async def follow_user(to_follow : str,user_property_service : IUserPropertyServi
     return "Ok"
 
 @router.get("/get_me")
-async def get_me(username =  Depends(get_current_user)) :
-    # username = await get_current_user()
-    # if username is None:
-    #     raise HTTPException(status_code=401, detail="Invalid token")
-    
-    return username
+async def get_me(user =  Depends(get_current_user)) :    
+    return await user

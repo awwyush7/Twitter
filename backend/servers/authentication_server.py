@@ -22,8 +22,6 @@ def get_user_service() -> IUserService:
 def get_login_manager() -> ILoginService:
     return login_service
 
-app = FastAPI()
-
 @router.get("/health")
 def health() :
     return "Okay"
